@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('../../config/database');
 
 let gracefulShutdown;
-const dbURI       = config.dbURI;
+let dbURI       = config.dbURI;
 if (process.env.NODE_ENV === 'production') {
 dbURI = process.env.MONGOLAB_URI;
 }
