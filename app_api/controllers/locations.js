@@ -1,5 +1,4 @@
-var mongoose          = require('mongoose'),
-    Loc               = mongoose.model('Location'),
+var    Loc               = require('../models/locations'),
 
 theEarth          = (function(){
       var earthRadius = 6371,

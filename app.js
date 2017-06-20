@@ -30,7 +30,7 @@ var routesApi = require('./app_api/routes/locations');
 
 const app = express();
 
-const users = require('./routes/users');
+const users = require('./app_api/controllers/users');
 
 
 // port number

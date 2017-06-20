@@ -1,5 +1,5 @@
 <h2 class="page-header">Register</h2>
-<form (submit)="onRegisterSubmit()">
+<form (submit)="onRegisterSubmit()" #regForm="ngForm">
   <div class="form-group">
     <label>Name</label>
     <input type="text" class="form-control" name="name" [(ngModel)]="this.name">
@@ -16,5 +16,5 @@
     <label>Password</label>
     <input type="password" class="form-control" name="pw" [(ngModel)]="this.password">
   </div>
-  <input type="submit" class="btn btn-primary" value="Submit">
+  <input type="submit" class="btn btn-primary" value="Submit" [disabled]="!regForm.form.valid">
 </form>

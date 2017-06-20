@@ -577,7 +577,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\"></h2>\n<form (submit)=\"onLoginSubmit()\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" name=\"username\" class=\"form-control\" [(ngModel)]=\"username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" name=\"password\" class=\"form-control\" [(ngModel)]=\"password\">\n    <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\">\n  </div>\n</form>"
+module.exports = "<h2 class=\"page-header\"></h2>\n<form (submit)=\"onLoginSubmit()\" #logForm=\"ngForm\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" name=\"username\" class=\"form-control\" [(ngModel)]=\"username\" required>\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" name=\"password\" class=\"form-control\" [(ngModel)]=\"password\" required>\n    <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\" [disabled]=\"!logForm.form.valid\">\n  </div>\n</form>"
 
 /***/ }),
 
@@ -618,6 +618,7 @@ var LoginComponent = (function () {
             username: this.username,
             password: this.password
         };
+        // Login
         this.authService.authenticateUser(user).subscribe(function (data) {
             if (data.success) {
                 _this.authService.storeUserData(data.name, data.token);
@@ -820,7 +821,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Register</h2>\n<form (submit)=\"onRegisterSubmit()\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"this.name\">\n  </div>\n  <div class=\"form-group\">\n    <label>Email</label>\n    <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"this.email\">\n  </div>\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" name=\"uname\" [(ngModel)]=\"this.username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" class=\"form-control\" name=\"pw\" [(ngModel)]=\"this.password\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\">\n</form>"
+module.exports = "<h2 class=\"page-header\">Register</h2>\n<form (submit)=\"onRegisterSubmit()\" #regForm=\"ngForm\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"this.name\">\n  </div>\n  <div class=\"form-group\">\n    <label>Email</label>\n    <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"this.email\">\n  </div>\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" name=\"uname\" [(ngModel)]=\"this.username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" class=\"form-control\" name=\"pw\" [(ngModel)]=\"this.password\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\" [disabled]=\"!regForm.form.valid\">\n</form>"
 
 /***/ }),
 
