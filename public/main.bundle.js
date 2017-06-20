@@ -1053,12 +1053,12 @@ var LocationService = (function () {
         console.log('LocationService initialized...');
     }
     LocationService.prototype.getLocations = function () {
-        this.apiUrl = 'http://localhost:3000/api/locations?lng=77.49&lat=13.81&maxDistance=9000';
+        this.apiUrl = 'api/locations?lng=77.49&lat=13.81&maxDistance=9000';
         return this.http.get(this.apiUrl)
             .map(function (res) { return res.json(); });
     };
     LocationService.prototype.getLocationInfo = function (locId) {
-        this.apiUrl = 'http://localhost:3000/api/locations/' + locId;
+        this.apiUrl = 'api/locations/' + locId;
         return this.http.get(this.apiUrl)
             .map(function (res) { return res.json(); });
     };

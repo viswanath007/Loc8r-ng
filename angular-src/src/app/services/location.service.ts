@@ -10,12 +10,12 @@ export class LocationService {
   }
 
   getLocations() {
-    this.apiUrl =  'http://localhost:3000/api/locations?lng=77.49&lat=13.81&maxDistance=9000';
+    this.apiUrl =  'api/locations?lng=77.49&lat=13.81&maxDistance=9000';
     return this.http.get(this.apiUrl)
       .map(res => res.json());
   }
   getLocationInfo(locId) {
-    this.apiUrl =  'http://localhost:3000/api/locations/' + locId;
+    this.apiUrl =  'api/locations/' + locId;
     return this.http.get(this.apiUrl)
       .map(res => res.json());
   }
