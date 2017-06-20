@@ -4,7 +4,8 @@ const config = require('../../config/database');
 let gracefulShutdown;
 let dbURI       = config.dbURI;
 if (process.env.NODE_ENV === 'production') {
-dbURI = process.env.MONGOLAB_URI;
+// dbURI = process.env.MONGOLAB_URI;
+dbURI = process.env.MONGODB_URI;
 }
 mongoose.connect(dbURI);
 
