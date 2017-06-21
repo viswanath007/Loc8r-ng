@@ -122,14 +122,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var appRoues = [
+var appRoutes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_9__components_home_home_component__["a" /* HomeComponent */] },
     { path: 'about', component: __WEBPACK_IMPORTED_MODULE_13__components_about_about_component__["a" /* AboutComponent */] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_11__components_login_login_component__["a" /* LoginComponent */] },
     { path: 'register', component: __WEBPACK_IMPORTED_MODULE_10__components_register_register_component__["a" /* RegisterComponent */] },
     { path: 'profile', component: __WEBPACK_IMPORTED_MODULE_12__components_profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_17__guards_auth_guard__["a" /* AuthGuard */]] },
     { path: ':location._id', component: __WEBPACK_IMPORTED_MODULE_19__components_loc_info_loc_info_component__["a" /* LocInfoComponent */] },
-    { path: ':location._id/review/new', component: __WEBPACK_IMPORTED_MODULE_20__components_form_form_component__["a" /* FormComponent */] }
+    { path: ':location._id/reviews/new', component: __WEBPACK_IMPORTED_MODULE_20__components_form_form_component__["a" /* FormComponent */] }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -154,7 +154,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["HttpModule"],
-            __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* RouterModule */].forRoot(appRoues),
+            __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* RouterModule */].forRoot(appRoutes),
             __WEBPACK_IMPORTED_MODULE_5_angular2_flash_messages__["FlashMessagesModule"],
             __WEBPACK_IMPORTED_MODULE_6__agm_core__["a" /* AgmCoreModule */].forRoot({
                 apiKey: 'AIzaSyDoyTpR_TIOtg_G9PcpUTN9g2iU-HMakyI'
@@ -312,7 +312,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/form/form.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row page-header\">\n  <div class=\"col-lg-12\">\n    <h1>{{ pageHeader.title }}</h1>\n</div>  \n</div>\n<div class=\"row\">\n  <div class=\"col-xs-12 col-md-6\">\n    <form class=\"form-horizontal\" role='form' method=\"post\" action=\"\">\n      <div *ngIf=\"error == 'val'\" class=\"alert alert-danger\" role='alert'>All field required, please try again</div>\n      <div class=\"form-group\">\n        <label class=\"col-xs-10 col-sm-2 control-label\" for=\"name\">Name</label>\n        <div class=\"col-xs-12 col-sm-10\">\n          <input type=\"text\" name=\"name\" id=\"name\" class=\"form-control\" />\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <label class=\"col-xs-10 col-sm-2 control-label\" for=\"rating\">Rating</label>\n        <div class=\"col-xs-12 col-sm-2\">\n          <select name=\"rating\" id=\"rating\" class=\"form-control input-sm\">\n            <option>5</option>\n            <option>4</option>\n            <option>3</option>\n            <option>2</option>\n            <option>1</option>\n          </select>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <label class=\"col-sm-2 control-label\" for=\"review\">Review</label>\n        <div class=\"col-sm-10\">\n          <textarea type=\"text\" name=\"review\" id=\"review\" class=\"form-control\" rows=\"5\"></textarea>\n        </div>\n      </div>\n      <button class=\"btn btn-default pull-right\">Add My Review</button>\n    </form>\n</div>\n<!-- <div class=\"col-xs-12 col-md-4\"></div> -->  \n</div>"
+module.exports = "<div class=\"row page-header\">\n  <div class=\"col-lg-12\">\n    <h1>{{name}}</h1>\n</div>  \n</div>\n<div class=\"row\">\n  <div class=\"col-xs-12 col-md-6\">\n    <form (submit)=\"onReviewSubmit()\" class=\"form-horizontal\" role='form' #rForm=\"ngForm\">\n      <div *ngIf=\"error == 'val'\" class=\"alert alert-danger\" role='alert'>All field required, please try again</div>\n      <div class=\"form-group\">\n        <label class=\"col-xs-10 col-sm-2 control-label\" for=\"name\">Name</label>\n        <div class=\"col-xs-12 col-sm-10\">\n          <input type=\"text\" name=\"name\" id=\"name\" class=\"form-control\" [(ngModel)]=\"this.uname\" required/>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <label class=\"col-xs-10 col-sm-2 control-label\" for=\"rating\">Rating</label>\n        <div class=\"col-xs-12 col-sm-2\">\n          <select name=\"rating\" id=\"rating\" class=\"form-control input-sm\" [(ngModel)]=\"this.rating\" required>\n            <option selected>5</option>\n            <option>4</option>\n            <option>3</option>\n            <option>2</option>\n            <option>1</option>\n          </select>\n        </div>\n      </div>\n      <div class=\"form-group\">\n        <label class=\"col-sm-2 control-label\" for=\"review\">Review</label>\n        <div class=\"col-sm-10\">\n          <textarea type=\"text\" name=\"reviewText\" id=\"review\" class=\"form-control\" rows=\"5\" \n          [(ngModel)]=\"this.reviewText\" ></textarea>\n        </div>\n      </div>\n      <button class=\"btn btn-default pull-right\" [disabled]=\"!rForm.form.valid\">Add My Review</button>\n    </form>\n</div>\n<!-- <div class=\"col-xs-12 col-md-4\"></div> -->  \n</div>"
 
 /***/ }),
 
@@ -321,6 +321,11 @@ module.exports = "<div class=\"row page-header\">\n  <div class=\"col-lg-12\">\n
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_location_service__ = __webpack_require__("../../../../../src/app/services/location.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FormComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -332,13 +337,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
+
 var FormComponent = (function () {
-    function FormComponent() {
-        this.pageHeader = {
-            title: 'Bangalore'
-        };
+    function FormComponent(locationService, route, flashMessage, router, _location) {
+        this.locationService = locationService;
+        this.route = route;
+        this.flashMessage = flashMessage;
+        this.router = router;
+        this._location = _location;
     }
     FormComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.locId = params['location._id'];
+        });
+        this.locationService.getLocationInfo(this.locId).subscribe(function (location) {
+            _this.name = location.name;
+        });
+    };
+    FormComponent.prototype.onReviewSubmit = function () {
+        var _this = this;
+        var review = {
+            author: this.uname,
+            rating: parseInt(this.rating, 10),
+            reviewText: this.reviewText,
+        };
+        this.locationService.postReview(review, this.locId).subscribe(function (data) {
+            if (data.success) {
+                _this.flashMessage.show('Thank you for Review', { cssClass: 'alert-success', timeout: 3000 });
+                // this.router.navigate(['/:location._id']);
+                _this._location.back();
+            }
+            else {
+                _this.flashMessage.show('Something went wrong, please try again', { cssClass: 'alert-danger',
+                    timeout: 3000 });
+            }
+        }, function (err) { console.log(err); });
+    };
+    FormComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
     };
     return FormComponent;
 }());
@@ -346,11 +387,13 @@ FormComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-form',
         template: __webpack_require__("../../../../../src/app/components/form/form.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/components/form/form.component.css")]
+        styles: [__webpack_require__("../../../../../src/app/components/form/form.component.css")],
+        providers: [__WEBPACK_IMPORTED_MODULE_1__services_location_service__["a" /* LocationService */]]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_location_service__["a" /* LocationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_location_service__["a" /* LocationService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common__["Location"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common__["Location"]) === "function" && _e || Object])
 ], FormComponent);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=form.component.js.map
 
 /***/ }),
@@ -376,7 +419,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"banner\" class=\"page-header\">\n  <div class=\"row\">\n    <div class=\"col-lg-6\">\n      <h1>Loc8r\n        <small>&nbsp;Find places to work with wifi near you!</small>\n      </h1>\n    </div>\n  </div>\n</div>\n<div class=\"row\"><!-- locations list -->\n  <div class=\"col-xs-12 col-sm-8\">\n    <div class=\"error\">{{ msg }}</div>\n    <div class=\"row list-group\">\n      <div class=\"col-xs-12 list-group-item\" *ngFor=\"let location of locations\">\n        <h4>\n          <a [routerLink]=\"[ location._id ]\">{{ location.name }}</a>\n          <small>&nbsp;\n            <!-- {{ outputRating(location.rating) }} -->\n          <span class='glyphicon glyphicon-star' *ngFor=\"let r of ratings\"></span>\n          </small>\n          <span class=\"badge badge-default pull-right\">{{ formatDistance(location.distance) }}</span>\n        </h4>\n        <p class=\"address\">{{ location.address }}</p>\n        <p>\n          <span class=\"label label-warning\" *ngFor=\"let facility of location.facilities\">\n            {{ facility }}\n          </span>\n        </p>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-xs-12 col-sm-4\">\n    <p class=\"lead\"><!-- sidebar -->\n      Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.\n    </p>\n  </div>\n</div>"
+module.exports = "<div id=\"banner\" class=\"page-header\">\n  <div class=\"row\">\n    <div class=\"col-lg-6\">\n      <h1>Loc8r\n        <small>&nbsp;Find places to work with wifi near you!</small>\n      </h1>\n    </div>\n  </div>\n</div>\n<div class=\"row\"><!-- locations list -->\n  <div class=\"col-xs-12 col-sm-8\">\n    <div class=\"error\">{{ msg }}</div>\n    <div class=\"row list-group\">\n      <div class=\"col-xs-12 list-group-item\" *ngFor=\"let location of locations\">\n        <h4>\n          <a [routerLink]=\"[ location._id ]\">{{ location.name }}</a>&nbsp;\n          <small *ngFor=\"let r of ratings; let i = index;\">\n            <span class='glyphicon glyphicon-star' *ngIf=\"location.rating > i\"></span>\n            <span class='glyphicon glyphicon-star-empty' *ngIf=\"location.rating < i\"></span>\n          </small>\n          <span class=\"badge badge-default pull-right\">{{ formatDistance(location.distance) }}</span>\n        </h4>\n        <p class=\"address\">{{ location.address }}</p>\n        <p>\n          <span class=\"label label-warning\" *ngFor=\"let facility of location.facilities\">\n            {{ facility }}\n          </span>\n        </p>\n      </div>\n    </div>\n  </div>\n  <div class=\"col-xs-12 col-sm-4\">\n    <p class=\"lead\"><!-- sidebar -->\n      Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.\n    </p>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -405,29 +448,10 @@ var HomeComponent = (function () {
         var _this = this;
         this.locationService = locationService;
         this.router = router;
-        this.ratings = [1, 2, 3, 4, 5];
+        this.ratings = [0, 1, 2, 3, 4, 5];
         this.locationService.getLocations().subscribe(function (locations) {
             _this.locations = locations;
         });
-        // this.locations = [{
-        //         name: 'Starcups',
-        //         address: '125 High Street, Reading, RG6 1PS',
-        //         rating: 3,
-        //         facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-        //         distance: '100m'
-        //     }, {
-        //         name: 'Cafe Hero',
-        //         address: '125 High Street, Reading, RG6 1PS',
-        //         rating: 4,
-        //         facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-        //         distance: '200m'
-        //     }, {
-        //         name: 'Burger Queen',
-        //         address: '125 High Street, Reading, RG6 1PS',
-        //         rating: 2,
-        //         facilities: ['Food', 'Premium wifi'],
-        //         distance: '250m'
-        //     }];
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
@@ -481,7 +505,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/loc-info/loc-info.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row page-header\">\n  <div class=\"col-lg-12\">\n    <h1>{{ name }}</h1>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"col-xs-12 col-md-9\">\n    <div class=\"row\">\n      <div class=\"col-xs-12 col-sm-6\">\n        <p class=\"rating\"><span class='glyphicon glyphicon-star' *ngFor=\"let r of ratings\"></span></p>\n        <p>{{ address }}</p>\n          <div class=\"panel panel-primary\">\n            <div class=\"panel-heading\">\n              <h2 class=\"panel-title\">Opening hours</h2>\n            </div>\n            <div class=\"panel-body\">\n              <p *ngFor=\"let time of openingTimes\">\n                <span>{{ time.days }}</span>\n                <span *ngIf=\"time.closed\">closed</span>\n                <span *ngIf=\"!time.closed\">{{ time.opening + '-' + time.closing }}</span>\n              </p>\n            </div>\n          </div>\n          <div class=\"panel panel-primary\">\n            <div class=\"panel-heading\">\n              <h2 class=\"panel-title\">Facilities</h2>\n            </div>\n            <div class=\"panel-body\">\n              <span class=\"label label-warning\" *ngFor=\"let facility of facilities\">\n                <span class=\"glyphicon glyphicon-ok\">&nbsp;</span>{{ facility }}\n              </span>\n            </div>\n          </div>\n      </div>\n      <div class=\"col-xs-12 col-sm-6 location-map\">\n        <div class=\"panel panel-primary\">\n            <div class=\"panel-heading\">\n              <h2 class=\"panel-title\">Location map</h2>\n            </div>\n            <div class=\"panel-body\">\n              <agm-map style=\"width: inherit;\" [latitude]=\"lat\" [longitude]=\"lng\">\n                <agm-marker [latitude]=\"lat\" [longitude]=\"lng\"></agm-marker>\n              </agm-map>\n            </div>\n          </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <div class=\"panel panel-primary review-panel\">\n            <div class=\"panel-heading\">\n              <a class=\"btn btn-default pull-right\" [routerLink]=\"['review/new']\">Add review</a>\n              <h2 class=\"panel-title\">Customer Reviews</h2>\n            </div>\n            <div class=\"panel-body review-container\">\n              <div class=\"row\" *ngFor=\"let review of reviews\">\n                <div class=\"review\">\n                  <div class=\"well well-sm review-header\">\n                      <span *ngFor=\"let r of ratings\" class=\"rating glyphicon glyphicon-star\"></span>\n                      <span class=\"reviewAuthor\">{{ review.author }}</span>\n                      <span class=\"reviewTimestamp\">{{ formatDate(review.createdOn) }}</span>\n                  </div>\n                  <div class=\"col-xs-12\">\n                      <p>{{ review.reviewText }}</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"row page-header\">\n  <div class=\"col-lg-12\">\n    <h1>{{ name }}</h1>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"col-xs-12 col-md-9\">\n    <div class=\"row\">\n      <div class=\"col-xs-12 col-sm-6\">\n        <p class=\"rating\">\n          <small *ngFor=\"let r of ratings; let i = index;\">\n            <span class='glyphicon glyphicon-star' *ngIf=\"rating > i\"></span>\n            <span class='glyphicon glyphicon-star-empty' *ngIf=\"rating < i\"></span>\n          </small>\n        </p>\n        <p>{{ address }}</p>\n          <div class=\"panel panel-primary\">\n            <div class=\"panel-heading\">\n              <h2 class=\"panel-title\">Opening hours</h2>\n            </div>\n            <div class=\"panel-body\">\n              <p *ngFor=\"let time of openingTimes\">\n                <span>{{ time.days }}</span>\n                <span *ngIf=\"time.closed\">closed</span>\n                <span *ngIf=\"!time.closed\">{{ time.opening + '-' + time.closing }}</span>\n              </p>\n            </div>\n          </div>\n          <div class=\"panel panel-primary\">\n            <div class=\"panel-heading\">\n              <h2 class=\"panel-title\">Facilities</h2>\n            </div>\n            <div class=\"panel-body\">\n              <span class=\"label label-warning\" *ngFor=\"let facility of facilities\">\n                <span class=\"glyphicon glyphicon-ok\">&nbsp;</span>{{ facility }}\n              </span>\n            </div>\n          </div>\n      </div>\n      <div class=\"col-xs-12 col-sm-6 location-map\">\n        <div class=\"panel panel-primary\">\n            <div class=\"panel-heading\">\n              <h2 class=\"panel-title\">Location map</h2>\n            </div>\n            <div class=\"panel-body\">\n              <agm-map style=\"width: inherit;\" [latitude]=\"lat\" [longitude]=\"lng\">\n                <agm-marker [latitude]=\"lat\" [longitude]=\"lng\"></agm-marker>\n              </agm-map>\n            </div>\n          </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-xs-12\">\n        <div class=\"panel panel-primary review-panel\">\n            <div class=\"panel-heading\">\n              <a class=\"btn btn-default pull-right\" [routerLink]=\"['reviews/new']\">Add review</a>\n              <h2 class=\"panel-title\">Customer Reviews</h2>\n            </div>\n            <div class=\"panel-body review-container\">\n              <div class=\"row\" *ngFor=\"let review of reviews\">\n                <div class=\"review\">\n                  <div class=\"well well-sm review-header\">\n                      <span *ngFor=\"let r of ratings\" class=\"rating glyphicon glyphicon-star\"></span>\n                      <span class=\"reviewAuthor\">{{ review.author }}</span>\n                      <span class=\"reviewTimestamp\">{{ formatDate(review.createdOn) }}</span>\n                  </div>\n                  <div class=\"col-xs-12\">\n                      <p>{{ review.reviewText }}</p>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -510,13 +534,14 @@ var LocInfoComponent = (function () {
         var _this = this;
         this.locationService = locationService;
         this.route = route;
-        this.ratings = [1, 2, 3, 4, 5];
+        this.ratings = [0, 1, 2, 3, 4, 5];
         this.sub = this.route.params.subscribe(function (params) {
             _this.locId = params['location._id'];
         });
         this.locationService.getLocationInfo(this.locId).subscribe(function (location) {
             _this.name = location.name;
             _this.address = location.address;
+            _this.rating = location.rating;
             _this.openingTimes = location.openingTimes;
             _this.facilities = location.facilities;
             _this.lat = location.coords[1];
@@ -821,7 +846,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Register</h2>\n<form (submit)=\"onRegisterSubmit()\" #regForm=\"ngForm\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"this.name\">\n  </div>\n  <div class=\"form-group\">\n    <label>Email</label>\n    <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"this.email\">\n  </div>\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" name=\"uname\" [(ngModel)]=\"this.username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" class=\"form-control\" name=\"pw\" [(ngModel)]=\"this.password\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\" [disabled]=\"!regForm.form.valid\">\n</form>"
+module.exports = "<h2 class=\"page-header\">Register</h2>\n<form (submit)=\"onRegisterSubmit()\" #regForm=\"ngForm\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input type=\"text\" class=\"form-control\" name=\"name\" [(ngModel)]=\"this.name\" required>\n  </div>\n  <div class=\"form-group\">\n    <label>Email</label>\n    <input type=\"text\" class=\"form-control\" name=\"email\" [(ngModel)]=\"this.email\" required>\n  </div>\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" name=\"uname\" [(ngModel)]=\"this.username\" required>\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" class=\"form-control\" name=\"pw\" [(ngModel)]=\"this.password\" required>\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\" [disabled]=\"!regForm.form.valid\">\n</form>"
 
 /***/ }),
 
@@ -1060,6 +1085,12 @@ var LocationService = (function () {
     LocationService.prototype.getLocationInfo = function (locId) {
         this.apiUrl = 'api/locations/' + locId;
         return this.http.get(this.apiUrl)
+            .map(function (res) { return res.json(); });
+    };
+    LocationService.prototype.postReview = function (review, locId) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(locId + '/reviews/new', review, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     return LocationService;

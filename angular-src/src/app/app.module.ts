@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AgmCoreModule } from '@agm/core';
 
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
@@ -24,14 +23,14 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LocInfoComponent } from './components/loc-info/loc-info.component';
 import { FormComponent } from './components/form/form.component';
 
-const appRoues: Routes = [
+const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: ':location._id', component: LocInfoComponent },
-  { path: ':location._id/review/new', component: FormComponent }
+  { path: ':location._id/reviews/new', component: FormComponent }
   
 ]
 
@@ -52,7 +51,7 @@ const appRoues: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoues),
+    RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDoyTpR_TIOtg_G9PcpUTN9g2iU-HMakyI'

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -17,6 +17,13 @@ export class LocationService {
   getLocationInfo(locId) {
     this.apiUrl =  'api/locations/' + locId;
     return this.http.get(this.apiUrl)
+      .map(res => res.json());
+  }
+
+  postReview(review, locId) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(locId + '/reviews/new', review, {headers: headers})
       .map(res => res.json());
   }
 }

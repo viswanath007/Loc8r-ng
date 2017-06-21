@@ -2,8 +2,8 @@ let express = require('express');
 let router  = express.Router();
 
     // INCLUDE Controller Files
-var ctrlLocations = require('../controllers/locations');
-    // ctrlReviews   = require('../controllers/reviews');
+var ctrlLocations = require('../controllers/locations'),
+    ctrlReviews   = require('../controllers/reviews');
 
     // DEFINE Routes for Locations and map them with associated controller functions
     router.get('/locations', ctrlLocations.locationsListByDistance);
@@ -12,8 +12,8 @@ var ctrlLocations = require('../controllers/locations');
     router.put('/locations/:locationid', ctrlLocations.locationsUpdateOne);
     router.delete('/locations/:locationid', ctrlLocations.locationsDeleteOne);
 
-    // DEFINE Routes for Reviews and map them with associated controller functions
-    // router.post('/locations/:locationid/reviews', ctrlReviews.reviewsCreate);
+    // // DEFINE Routes for Reviews and map them with associated controller functions
+    // router.post('/locations/:locationid/reviews/new', ctrlReviews.doAddReview);
     // router.get('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsReadOne);
     // router.put('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsUpdateOne);
     // router.delete('/locations/:locationid/reviews/:reviewid', ctrlReviews.reviewsDeleteOne);

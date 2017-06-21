@@ -13,10 +13,10 @@
     <div class="row list-group">
       <div class="col-xs-12 list-group-item" *ngFor="let location of locations">
         <h4>
-          <a [routerLink]="[ location._id ]">{{ location.name }}</a>
-          <small>&nbsp;
-            <!-- {{ outputRating(location.rating) }} -->
-          <span class='glyphicon glyphicon-star' *ngFor="let r of ratings"></span>
+          <a [routerLink]="[ location._id ]">{{ location.name }}</a>&nbsp;
+          <small *ngFor="let r of ratings; let i = index;">
+            <span class='glyphicon glyphicon-star' *ngIf="location.rating > i"></span>
+            <span class='glyphicon glyphicon-star-empty' *ngIf="location.rating < i"></span>
           </small>
           <span class="badge badge-default pull-right">{{ formatDistance(location.distance) }}</span>
         </h4>

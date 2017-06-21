@@ -3,6 +3,7 @@ import { LocationService } from '../../services/location.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
+  moduleId: module.id,
   selector: 'app-loc-info',
   templateUrl: './loc-info.component.html',
   styleUrls: ['./loc-info.component.css'],
@@ -11,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class LocInfoComponent implements OnInit, OnDestroy {
   name;
   address;
+  rating;
   openingTimes;
   facilities;
   coors;
@@ -24,7 +26,7 @@ export class LocInfoComponent implements OnInit, OnDestroy {
   constructor(private locationService: LocationService,
     private route: ActivatedRoute
     ) {
-    this.ratings = [1,2,3,4,5];
+    this.ratings = [0,1,2,3,4,5];
 
     this.sub = this.route.params.subscribe(params => {
        this.locId = params['location._id'];
@@ -33,6 +35,7 @@ export class LocInfoComponent implements OnInit, OnDestroy {
     this.locationService.getLocationInfo(this.locId).subscribe(location => {
       this.name = location.name;
       this.address = location.address;
+      this.rating = location.rating;
       this.openingTimes = location.openingTimes;
       this.facilities = location.facilities;
       this.lat = location.coords[1];
