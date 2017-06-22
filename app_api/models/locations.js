@@ -4,8 +4,7 @@ const config = require('../../config/database');
 let gracefulShutdown;
 let dbURI       = config.dbURI;
 if (process.env.NODE_ENV === 'production') {
-// dbURI = process.env.MONGOLAB_URI;
-dbURI = process.env.MONGODB_URI;
+  dbURI = process.env.MONGODB_URI;
 }
 
 mongoose.Promise = global.Promise;
@@ -59,7 +58,7 @@ const openingTimeSchema = new mongoose.Schema({
 const reviewSchema      = new mongoose.Schema({
   author: {type: String, required: true},
   rating: {type: Number, required: true, min: 0, max: 5},
-  reviewText: {type: String, required: true},
+  reviewText: String,
   createdOn: {type: Date, "default": Date.now}
 });
 const locationSchema    = new mongoose.Schema({
